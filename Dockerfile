@@ -1,4 +1,4 @@
-FROM resin/rpi-raspbian:latest
+FROM hypriot/rpi-ruby:2.2.2
 
 ARG dir=/srv/dash
 WORKDIR $dir
