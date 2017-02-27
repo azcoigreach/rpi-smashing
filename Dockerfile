@@ -9,6 +9,6 @@ RUN smashing new $dir
 RUN bundle
 RUN apk del --no-cache .gems-deps
 
-CMD sed -i "s/YOUR_AUTH_TOKEN/${TOKEN}/" config.ru && smashing start -p $PORT
-
 EXPOSE 3030
+
+CMD sed -i "s/YOUR_AUTH_TOKEN/${TOKEN}/" config.ru && smashing start -p $PORT
