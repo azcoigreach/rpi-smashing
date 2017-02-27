@@ -1,9 +1,14 @@
 FROM resin/rpi-raspbian:latest
 
-RUN apt-get update && apt-get install ruby ruby-dev
+ARG dir=/srv/dash
+WORKDIR $dir
 
-RUN gem install bundler
+RUN apk add --no-cache g++ musl-dev make --virtual .gems-deps
+RUN gem install bundler smashing --no-ri --no-rdoc
+RUN smashing new $dir
+RUN bundle
+RUN apk del --no-cache .gems-deps
 
-RUN gem install smashing
+CMD sed -i "s/YOUR_AUTH_TOKEN/${TOKEN}/" config.ru && smashing start -p $PORT
 
-CMD ["/bin/bash"]
+EXPOSE 3030
