@@ -1,10 +1,10 @@
 FROM hypriot/rpi-ruby:2.2.2
 
-ARG dir=/srv/dash
+ARG dir=/srv/dashboard
 WORKDIR $dir
 
-RUN apk add --no-cache g++ musl-dev make --virtual .gems-deps
-RUN gem install bundler smashing --no-ri --no-rdoc
+RUN apt-get update && apt-get install gcc make -y
+RUN gem install bundler smashing --no-ri --no-rdoc -y
 RUN smashing new $dir
 RUN bundle
 RUN apk del --no-cache .gems-deps
